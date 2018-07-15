@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-use 5.020;
+use 5.013;
 use warnings;
 use autodie;
 use URI;
