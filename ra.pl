@@ -13,8 +13,7 @@ my $url = 'https://qntm.org/ra';
 my $idx = HTML::TreeBuilder::->new_from_url($url);
 
 # make the chapter structure make sense
-say $html HTML::Element::->new_from_lol(['a', { name => 'ra' }])->as_HTML;
-say $html HTML::Element::->new_from_lol(['h1', 'Ra'])->as_HTML;
+say $html HTML::Element::->new_from_lol(['h1', { id => 'ra' }, 'Ra'])->as_HTML;
 
 for my $item ($idx->look_down(_tag => 'div', id => 'content')->look_down(sub { $_[0]->tag =~ /^(h[34]|a)$/i })) {
 	if ($item->tag eq 'h3') {
@@ -24,10 +23,9 @@ for my $item ($idx->look_down(_tag => 'div', id => 'content')->look_down(sub { $
 		$item->tag('h1');
 		say $html $item->as_HTML;
 	} else { # must be a link
-		say STDERR $item->as_trimmed_text, " ", $item->attr('href');
+		say $item->as_trimmed_text, " ", $item->attr('href');
 		# allow anchor-linking between chapters
-		say $html HTML::Element::->new_from_lol(['a', { name => $item->attr('href') =~ s/[^a-z]//gr }])->as_HTML;
-		say $html HTML::Element::->new_from_lol(['h2', $item->as_trimmed_text])->as_HTML;
+		say $html HTML::Element::->new_from_lol(['h2', { id => $item->attr('href') =~ s/[^a-z]//gr }, $item->as_trimmed_text])->as_HTML;
 
 		# must keep this root, too
 		my $ch = HTML::TreeBuilder::->new_from_url(URI::->new_abs($item->attr('href'), $url));
