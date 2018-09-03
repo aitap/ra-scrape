@@ -1,3 +1,7 @@
+# UPDATE: Ra has ended
+
+No updates are planned and an EPUB containing all chapters, the original ending and appendices is available. Go to <https://qntm.org/ra> and download it from there.
+
 # What is this?
 
 This script prepares a EPUB version of qntm's book [Ra](https://qntm.org/ra) by scraping the website.
